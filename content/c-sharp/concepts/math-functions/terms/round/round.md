@@ -1,71 +1,73 @@
 ---
-Title: '.Round()'
-Description: 'Returns a value rounded to the nearest integer.'
+Title: 'Round'
+Description: 'Rounds a number to the nearest integer or to a specified number of decimal places.'
 Subjects:
-  - 'Code Foundations'
   - 'Computer Science'
 Tags:
   - 'Methods'
   - 'Numbers'
-  - 'Arithmetic'
-  - 'Functions'
 CatalogContent:
   - 'learn-c-sharp'
   - 'paths/computer-science'
 ---
 
-The **`Math.Round()`** class method returns a value rounded to the nearest integer.
+The **`.Round()`** method, part of the `Math` class in C#, rounds a numeric value to the nearest integer or to a specified number of decimal places.
+
+By default, `.Round()` uses **banker's rounding** (round-half-to-even), meaning a value exactly halfway between two numbers rounds to the nearest even number rather than always rounding up.
 
 ## Syntax
 
 ```pseudo
-Math.Round(value1, value2, value3);
+Math.Round(value);
+Math.Round(value, digits);
 ```
 
-The `Math.Round()` method takes up to three parameters:
+- `value`: The `double` or `decimal` number to round. Required.
+- `digits`: The number of decimal places to round to. Optional; defaults to `0` if omitted.
 
-- `value1` is the only required parameter and is either a decimal or double.
-- `value2` would be an integer ranging from -2,147,483,648 to 2,147,483,647 (int32), or it could be a specific mode that is called from the `MidpointRounding` `enum`.
-- `value3` would be the mode if `value2` was of type int32. The modes include: `ToEven`, `AwayFromZero`, `ToZero`, and `TowardZero`.
+`.Round()` returns the rounded value as the same type (`double` or `decimal`) that was passed in.
 
 ## Example
 
-The following example passes one argument as a parameter:
+The following example rounds a `double` to the nearest whole number and to two decimal places:
 
-```cs
-using System;
+``` cs
+double num1 = 4.7;
+double num2 = 2.5;
+double num3 = 3.14159;
 
-public class Example {
-  public static void Main(string[] args) {
-    decimal val1 = 10.2m;
-    val1 = Math.Round(val1);
-
-    Console.WriteLine("Rounded value is " + val1);
-  }
-}
+Console.WriteLine(Math.Round(num1));
+Console.WriteLine(Math.Round(num2));
+Console.WriteLine(Math.Round(num3, 2));
 ```
 
-The example will result in the following output:
+This produces the following output:
 
-```shell
-Rounded value is 10
+``` shell
+5
+2
+3.14
 ```
+
+Note that `num2` (`2.5`) rounds down to `2` instead of up to `3` because of banker's rounding: `2` is the nearest even number.
 
 ## Codebyte Example
 
-The following example passes three arguments into the method:
+The following Codebyte example demonstrates rounding a value to different numbers of decimal places:
 
 ```codebyte/csharp
 using System;
 
-public class Example {
+public class RoundExample
+{
+  public static void Main()
+  {
+    double price = 19.98765;
 
-  public static void Main(string[] args) {
-    decimal val1 = 20.5m;
-    int val2 = 0;
-    MidpointRounding mode = MidpointRounding.ToEven;
-
-    Console.WriteLine("Rounded value is " + Math.Round(val1, val2, mode));
+    Console.WriteLine(Math.Round(price));
+    Console.WriteLine(Math.Round(price, 1));
+    Console.WriteLine(Math.Round(price, 3));
   }
 }
 ```
+
